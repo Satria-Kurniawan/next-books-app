@@ -38,7 +38,7 @@ export default function Home() {
           <div onClick={searchBooks}>
             <Button
               theme={
-                "bg-gradient-to-br from-indigo-300 via-purple-400 to-pink-300 rounded-lg text-xl font-bold py-2 px-4"
+                "bg-gradient-to-br from-indigo-300 via-purple-400 to-pink-300 rounded-lg text-xl font-bold py-2 px-4 h-full"
               }
               icon={<IoSearch size={25} />}
             />

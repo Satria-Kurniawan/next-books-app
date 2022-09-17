@@ -2,20 +2,32 @@ import "../styles/globals.css"
 import Layout from "../components/Layout"
 import { store } from "../store"
 import { Provider } from "react-redux"
+import { SessionProvider } from "next-auth/react"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-function MyApp({ Component, pageProps, ...appProps }) {
-  if (["/"].includes(appProps.router.pathname))
+function MyApp({ Component, pageProps, session, ...appProps }) {
+  if (
+    ["/"].includes(appProps.router.pathname) ||
+    ["/login"].includes(appProps.router.pathname)
+  )
     return (
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
+      <SessionProvider session={session}>
+        <Provider store={store}>
+          <Component {...pageProps} />
+          <ToastContainer />
+        </Provider>
+      </SessionProvider>
     )
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
+    <SessionProvider session={session}>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+          <ToastContainer />
+        </Layout>
+      </Provider>
+    </SessionProvider>
   )
 }
 

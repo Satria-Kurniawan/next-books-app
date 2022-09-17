@@ -1,7 +1,10 @@
 import { IoBookSharp } from "react-icons/io5"
 import Link from "next/link"
+import { useSession, signIn } from "next-auth/react"
 
 const Nav = () => {
+  const { data: session } = useSession()
+
   return (
     <nav className="sticky top-0 z-10 flex justify-between bg-transparent py-5 px-28 text-white">
       <div className="flex items-center gap-x-3">
@@ -18,6 +21,16 @@ const Nav = () => {
         <a href="https://github.com/satria-kurniawan" target="_blank">
           <li>Github</li>
         </a>
+
+        {!session ? (
+          <li onClick={() => signIn()} className="cursor-pointer">
+            Sign In
+          </li>
+        ) : (
+          <Link href="/profile">
+            <li className="cursor-pointer">{session.user.name}</li>
+          </Link>
+        )}
       </ul>
     </nav>
   )
